@@ -1,0 +1,4 @@
+# Local distribution files for the lab index are placed here BY HAND.
+# This directory is intentionally empty in git. Nothing is ever uploaded to a
+# public registry; the registry server (../server.py) only serves what is in
+# this folder on the lab host. See ../../README.md and ../../demo/README.md.

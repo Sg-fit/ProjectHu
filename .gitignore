@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+lab/agent/dist/
+# Local shim caches and scratch DBs (the committed results DB is added explicitly)
+*.sqlite
+*.sqlite-journal
+!results/als.sqlite
+# Lab distribution files are placed by hand and never committed
+lab/registry/packages/*
+!lab/registry/packages/.gitkeep.txt
+.DS_Store

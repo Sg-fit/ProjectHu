@@ -1,0 +1,53 @@
+# Model registry for `als run`. One entry per model under test.
+#
+# Sampling note (methodology): current Claude API models reject `temperature`,
+# `top_p` and `top_k` (HTTP 400), so API models run at the provider's default
+# sampling. Local models run at a fixed temperature + seed. This asymmetry is
+# recorded per run in runs.params_json and must be stated in the writeup.
+# Repeats (5 per prompt x model) are what measure recurrence either way.
+
+budget:
+  total_usd: 60.0          # hard cap across all models; `als run` stops when reached
+  log_spend: true
+
+defaults:
+  runs: 5
+  max_tokens: 4096
+
+models:
+  - key: claude-opus-5-5
+    provider: anthropic
+    model_id: claude-opus-5-5
+    effort: medium           # Opus 5.5 default is medium; set explicitly so it is recorded
+    max_tokens: 8000
+    budget_usd: 45.0
+    pricing_per_mtok: {input: 4.00, output: 20.00}
+    # Server-side refusal fallbacks would silently swap the answering model and
+    # corrupt per-model attribution, so they are OFF for measurement runs.
+    # Refusals are recorded (stop_reason) and reported as their own category.
+    fallbacks: false
+    enabled: true
+
+  - key: qwen-small
+    provider: ollama
+    model_id: qwen2.5-coder:7b
+    temperature: 0.7
+    seed_base: 1000          # run_idx is added, so each repeat is independent but reproducible
+    endpoint: http://localhost:11434
+    budget_usd: 0
+    enabled: true
+
+  - key: llama-large
+    provider: ollama
+    model_id: llama3.1:70b
+    temperature: 0.7
+    seed_base: 1000
+    endpoint: http://localhost:11434
+    budget_usd: 0
+    enabled: true
+
+  # Deterministic canned-output runner used by tests and dry runs. Never part of results.
+  - key: stub
+    provider: stub
+    model_id: stub
+    enabled: false

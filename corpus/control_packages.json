@@ -1,0 +1,868 @@
+{
+ "_note": "Shim false-positive control set. Never mixed into generation prompts. Typo variants are looked up only; nothing here is ever registered on any registry.",
+ "seed": 20261106,
+ "real": [
+  {
+   "name": "typing-extensions",
+   "ecosystem": "pypi",
+   "rank": 3
+  },
+  {
+   "name": "urllib3",
+   "ecosystem": "pypi",
+   "rank": 6
+  },
+  {
+   "name": "requests",
+   "ecosystem": "pypi",
+   "rank": 8
+  },
+  {
+   "name": "pyyaml",
+   "ecosystem": "pypi",
+   "rank": 12
+  },
+  {
+   "name": "iniconfig",
+   "ecosystem": "pypi",
+   "rank": 26
+  },
+  {
+   "name": "jmespath",
+   "ecosystem": "pypi",
+   "rank": 50
+  },
+  {
+   "name": "pydantic-settings",
+   "ecosystem": "pypi",
+   "rank": 74
+  },
+  {
+   "name": "zipp",
+   "ecosystem": "pypi",
+   "rank": 80
+  },
+  {
+   "name": "pyparsing",
+   "ecosystem": "pypi",
+   "rank": 91
+  },
+  {
+   "name": "mcp",
+   "ecosystem": "pypi",
+   "rank": 116
+  },
+  {
+   "name": "opentelemetry-exporter-otlp-proto-common",
+   "ecosystem": "pypi",
+   "rank": 137
+  },
+  {
+   "name": "distlib",
+   "ecosystem": "pypi",
+   "rank": 141
+  },
+  {
+   "name": "pytest-xdist",
+   "ecosystem": "pypi",
+   "rank": 176
+  },
+  {
+   "name": "xlsxwriter",
+   "ecosystem": "pypi",
+   "rank": 206
+  },
+  {
+   "name": "mpmath",
+   "ecosystem": "pypi",
+   "rank": 221
+  },
+  {
+   "name": "google-api-python-client",
+   "ecosystem": "pypi",
+   "rank": 238
+  },
+  {
+   "name": "aiofiles",
+   "ecosystem": "pypi",
+   "rank": 241
+  },
+  {
+   "name": "authlib",
+   "ecosystem": "pypi",
+   "rank": 248
+  },
+  {
+   "name": "mcp-types",
+   "ecosystem": "pypi",
+   "rank": 280
+  },
+  {
+   "name": "matplotlib-inline",
+   "ecosystem": "pypi",
+   "rank": 286
+  },
+  {
+   "name": "databricks-sdk",
+   "ecosystem": "pypi",
+   "rank": 317
+  },
+  {
+   "name": "types-requests",
+   "ecosystem": "pypi",
+   "rank": 333
+  },
+  {
+   "name": "mdit-py-plugins",
+   "ecosystem": "pypi",
+   "rank": 348
+  },
+  {
+   "name": "backports-zstd",
+   "ecosystem": "pypi",
+   "rank": 416
+  },
+  {
+   "name": "isoduration",
+   "ecosystem": "pypi",
+   "rank": 493
+  },
+  {
+   "name": "opentelemetry-instrumentation-threading",
+   "ecosystem": "pypi",
+   "rank": 515
+  },
+  {
+   "name": "altair",
+   "ecosystem": "pypi",
+   "rank": 519
+  },
+  {
+   "name": "phonenumbers",
+   "ecosystem": "pypi",
+   "rank": 529
+  },
+  {
+   "name": "google-cloud-logging",
+   "ecosystem": "pypi",
+   "rank": 588
+  },
+  {
+   "name": "opentelemetry-instrumentation-sqlalchemy",
+   "ecosystem": "pypi",
+   "rank": 593
+  },
+  {
+   "name": "pydantic-ai-slim",
+   "ecosystem": "pypi",
+   "rank": 633
+  },
+  {
+   "name": "langchain-community",
+   "ecosystem": "pypi",
+   "rank": 665
+  },
+  {
+   "name": "gevent",
+   "ecosystem": "pypi",
+   "rank": 687
+  },
+  {
+   "name": "tblib",
+   "ecosystem": "pypi",
+   "rank": 697
+  },
+  {
+   "name": "pytimeparse",
+   "ecosystem": "pypi",
+   "rank": 710
+  },
+  {
+   "name": "opentelemetry-instrumentation-flask",
+   "ecosystem": "pypi",
+   "rank": 711
+  },
+  {
+   "name": "azure-monitor-opentelemetry-exporter",
+   "ecosystem": "pypi",
+   "rank": 732
+  },
+  {
+   "name": "adal",
+   "ecosystem": "pypi",
+   "rank": 748
+  },
+  {
+   "name": "leather",
+   "ecosystem": "pypi",
+   "rank": 793
+  },
+  {
+   "name": "shortuuid",
+   "ecosystem": "pypi",
+   "rank": 815
+  },
+  {
+   "name": "tld",
+   "ecosystem": "pypi",
+   "rank": 855
+  },
+  {
+   "name": "tensorboard",
+   "ecosystem": "pypi",
+   "rank": 871
+  },
+  {
+   "name": "pytest-httpx",
+   "ecosystem": "pypi",
+   "rank": 900
+  },
+  {
+   "name": "genson",
+   "ecosystem": "pypi",
+   "rank": 903
+  },
+  {
+   "name": "msoffcrypto-tool",
+   "ecosystem": "pypi",
+   "rank": 912
+  },
+  {
+   "name": "readme-renderer",
+   "ecosystem": "pypi",
+   "rank": 927
+  },
+  {
+   "name": "azure-servicebus",
+   "ecosystem": "pypi",
+   "rank": 934
+  },
+  {
+   "name": "django-filter",
+   "ecosystem": "pypi",
+   "rank": 966
+  },
+  {
+   "name": "jsonlines",
+   "ecosystem": "pypi",
+   "rank": 971
+  },
+  {
+   "name": "cfn-lint",
+   "ecosystem": "pypi",
+   "rank": 990
+  },
+  {
+   "name": "langdetect",
+   "ecosystem": "pypi",
+   "rank": 1131
+  },
+  {
+   "name": "elevenlabs",
+   "ecosystem": "pypi",
+   "rank": 1237
+  },
+  {
+   "name": "ag-ui-protocol",
+   "ecosystem": "pypi",
+   "rank": 1318
+  },
+  {
+   "name": "supervisor",
+   "ecosystem": "pypi",
+   "rank": 1367
+  },
+  {
+   "name": "databricks-connect",
+   "ecosystem": "pypi",
+   "rank": 1651
+  },
+  {
+   "name": "wadler-lindig",
+   "ecosystem": "pypi",
+   "rank": 1717
+  },
+  {
+   "name": "pytest-aiohttp",
+   "ecosystem": "pypi",
+   "rank": 1857
+  },
+  {
+   "name": "jaconv",
+   "ecosystem": "pypi",
+   "rank": 1867
+  },
+  {
+   "name": "types-defusedxml",
+   "ecosystem": "pypi",
+   "rank": 1949
+  },
+  {
+   "name": "formulas",
+   "ecosystem": "pypi",
+   "rank": 2154
+  },
+  {
+   "name": "openinference-instrumentation-langchain",
+   "ecosystem": "pypi",
+   "rank": 2299
+  },
+  {
+   "name": "pyspellchecker",
+   "ecosystem": "pypi",
+   "rank": 2491
+  },
+  {
+   "name": "pusher",
+   "ecosystem": "pypi",
+   "rank": 2607
+  },
+  {
+   "name": "kfp-pipeline-spec",
+   "ecosystem": "pypi",
+   "rank": 2697
+  },
+  {
+   "name": "iterative-telemetry",
+   "ecosystem": "pypi",
+   "rank": 2710
+  },
+  {
+   "name": "torchao",
+   "ecosystem": "pypi",
+   "rank": 2766
+  },
+  {
+   "name": "aiodataloader",
+   "ecosystem": "pypi",
+   "rank": 2783
+  },
+  {
+   "name": "types-boto3-cloudformation",
+   "ecosystem": "pypi",
+   "rank": 2848
+  },
+  {
+   "name": "win32-setctime",
+   "ecosystem": "pypi",
+   "rank": 2852
+  },
+  {
+   "name": "pyside6-webengine",
+   "ecosystem": "pypi",
+   "rank": 3234
+  },
+  {
+   "name": "django-waffle",
+   "ecosystem": "pypi",
+   "rank": 3271
+  },
+  {
+   "name": "sqlakeyset",
+   "ecosystem": "pypi",
+   "rank": 3321
+  },
+  {
+   "name": "looseversion",
+   "ecosystem": "pypi",
+   "rank": 3865
+  },
+  {
+   "name": "pytest-messenger",
+   "ecosystem": "pypi",
+   "rank": 3896
+  },
+  {
+   "name": "alpaca-py",
+   "ecosystem": "pypi",
+   "rank": 3940
+  },
+  {
+   "name": "miniaudio",
+   "ecosystem": "pypi",
+   "rank": 3997
+  },
+  {
+   "name": "python-quickbooks",
+   "ecosystem": "pypi",
+   "rank": 4111
+  },
+  {
+   "name": "ntc-templates",
+   "ecosystem": "pypi",
+   "rank": 4127
+  },
+  {
+   "name": "azure-mgmt-managementpartner",
+   "ecosystem": "pypi",
+   "rank": 4193
+  },
+  {
+   "name": "agent-framework-openai",
+   "ecosystem": "pypi",
+   "rank": 4209
+  },
+  {
+   "name": "wmi",
+   "ecosystem": "pypi",
+   "rank": 5331
+  },
+  {
+   "name": "django-test-migrations",
+   "ecosystem": "pypi",
+   "rank": 5398
+  },
+  {
+   "name": "zmq",
+   "ecosystem": "pypi",
+   "rank": 5717
+  },
+  {
+   "name": "mysql-replication",
+   "ecosystem": "pypi",
+   "rank": 5902
+  },
+  {
+   "name": "splitio-client",
+   "ecosystem": "pypi",
+   "rank": 6068
+  },
+  {
+   "name": "openmm",
+   "ecosystem": "pypi",
+   "rank": 6354
+  },
+  {
+   "name": "fissix",
+   "ecosystem": "pypi",
+   "rank": 6788
+  },
+  {
+   "name": "rmm-cu12",
+   "ecosystem": "pypi",
+   "rank": 7297
+  },
+  {
+   "name": "odoo-test-helper",
+   "ecosystem": "pypi",
+   "rank": 8179
+  },
+  {
+   "name": "eth-bloom",
+   "ecosystem": "pypi",
+   "rank": 8429
+  },
+  {
+   "name": "sap-ai-sdk-base",
+   "ecosystem": "pypi",
+   "rank": 8769
+  },
+  {
+   "name": "refgenconf",
+   "ecosystem": "pypi",
+   "rank": 9732
+  },
+  {
+   "name": "django-organizations",
+   "ecosystem": "pypi",
+   "rank": 10908
+  },
+  {
+   "name": "itk-core",
+   "ecosystem": "pypi",
+   "rank": 11143
+  },
+  {
+   "name": "base2048",
+   "ecosystem": "pypi",
+   "rank": 11566
+  },
+  {
+   "name": "h5grove",
+   "ecosystem": "pypi",
+   "rank": 12007
+  },
+  {
+   "name": "django-fake-model",
+   "ecosystem": "pypi",
+   "rank": 12464
+  },
+  {
+   "name": "llama-index-vector-stores-opensearch",
+   "ecosystem": "pypi",
+   "rank": 12731
+  },
+  {
+   "name": "hdx-python-country",
+   "ecosystem": "pypi",
+   "rank": 13757
+  },
+  {
+   "name": "cose",
+   "ecosystem": "pypi",
+   "rank": 14797
+  },
+  {
+   "name": "@abandonware/noble",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "jquery",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "passport",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "express",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "onnxruntime-node",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "superagent",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "zod",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "marked",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "handlebars",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "yup",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "commander",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "firebase",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "pdf-lib",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "next",
+   "ecosystem": "npm"
+  },
+  {
+   "name": "mkdirp",
+   "ecosystem": "npm"
+  }
+ ],
+ "typo": [
+  {
+   "name": "iterativee-telemetry",
+   "ecosystem": "pypi",
+   "of": "iterative-telemetry",
+   "edit": "double"
+  },
+  {
+   "name": "azure-mgmt-managementpratner",
+   "ecosystem": "pypi",
+   "of": "azure-mgmt-managementpartner",
+   "edit": "swap"
+  },
+  {
+   "name": "geven",
+   "ecosystem": "pypi",
+   "of": "gevent",
+   "edit": "drop"
+  },
+  {
+   "name": "azure-monitoor-opentelemetry-exporter",
+   "ecosystem": "pypi",
+   "of": "azure-monitor-opentelemetry-exporter",
+   "edit": "double"
+  },
+  {
+   "name": "opennference-instrumentation-langchain",
+   "ecosystem": "pypi",
+   "of": "openinference-instrumentation-langchain",
+   "edit": "drop"
+  },
+  {
+   "name": "redme-renderer",
+   "ecosystem": "pypi",
+   "of": "readme-renderer",
+   "edit": "drop"
+  },
+  {
+   "name": "miniauddio",
+   "ecosystem": "pypi",
+   "of": "miniaudio",
+   "edit": "double"
+  },
+  {
+   "name": "azure-servicevus",
+   "ecosystem": "pypi",
+   "of": "azure-servicebus",
+   "edit": "sub"
+  },
+  {
+   "name": "pyyaaml",
+   "ecosystem": "pypi",
+   "of": "pyyaml",
+   "edit": "double"
+  },
+  {
+   "name": "types-boto3-cloudformaiton",
+   "ecosystem": "pypi",
+   "of": "types-boto3-cloudformation",
+   "edit": "swap"
+  },
+  {
+   "name": "jaconnv",
+   "ecosystem": "pypi",
+   "of": "jaconv",
+   "edit": "double"
+  },
+  {
+   "name": "cfn-lpnt",
+   "ecosystem": "pypi",
+   "of": "cfn-lint",
+   "edit": "sub"
+  },
+  {
+   "name": "aiiodataloader",
+   "ecosystem": "pypi",
+   "of": "aiodataloader",
+   "edit": "double"
+  },
+  {
+   "name": "django-frlter",
+   "ecosystem": "pypi",
+   "of": "django-filter",
+   "edit": "sub"
+  },
+  {
+   "name": "xlsxwritre",
+   "ecosystem": "pypi",
+   "of": "xlsxwriter",
+   "edit": "swap"
+  },
+  {
+   "name": "django-wwaffle",
+   "ecosystem": "pypi",
+   "of": "django-waffle",
+   "edit": "double"
+  },
+  {
+   "name": "pydnatic-ai-slim",
+   "ecosystem": "pypi",
+   "of": "pydantic-ai-slim",
+   "edit": "swap"
+  },
+  {
+   "name": "backportf-zstd",
+   "ecosystem": "pypi",
+   "of": "backports-zstd",
+   "edit": "sub"
+  },
+  {
+   "name": "iniconnfig",
+   "ecosystem": "pypi",
+   "of": "iniconfig",
+   "edit": "double"
+  },
+  {
+   "name": "requeests",
+   "ecosystem": "pypi",
+   "of": "requests",
+   "edit": "double"
+  },
+  {
+   "name": "tensoroard",
+   "ecosystem": "pypi",
+   "of": "tensorboard",
+   "edit": "drop"
+  },
+  {
+   "name": "pusehr",
+   "ecosystem": "pypi",
+   "of": "pusher",
+   "edit": "swap"
+  },
+  {
+   "name": "mcp-tyes",
+   "ecosystem": "pypi",
+   "of": "mcp-types",
+   "edit": "drop"
+  },
+  {
+   "name": "opentelemetry-instrumentaation-sqlalchemy",
+   "ecosystem": "pypi",
+   "of": "opentelemetry-instrumentation-sqlalchemy",
+   "edit": "double"
+  },
+  {
+   "name": "opentelemetry-instruumentation-threading",
+   "ecosystem": "pypi",
+   "of": "opentelemetry-instrumentation-threading",
+   "edit": "double"
+  },
+  {
+   "name": "pytest-aiottp",
+   "ecosystem": "pypi",
+   "of": "pytest-aiohttp",
+   "edit": "drop"
+  },
+  {
+   "name": "msoffcryptto-tool",
+   "ecosystem": "pypi",
+   "of": "msoffcrypto-tool",
+   "edit": "double"
+  },
+  {
+   "name": "opentelemerty-instrumentation-flask",
+   "ecosystem": "pypi",
+   "of": "opentelemetry-instrumentation-flask",
+   "edit": "swap"
+  },
+  {
+   "name": "kfpp-ipeline-spec",
+   "ecosystem": "pypi",
+   "of": "kfp-pipeline-spec",
+   "edit": "swap"
+  },
+  {
+   "name": "supervusor",
+   "ecosystem": "pypi",
+   "of": "supervisor",
+   "edit": "sub"
+  },
+  {
+   "name": "googlee-cloud-logging",
+   "ecosystem": "pypi",
+   "of": "google-cloud-logging",
+   "edit": "double"
+  },
+  {
+   "name": "formulsa",
+   "ecosystem": "pypi",
+   "of": "formulas",
+   "edit": "swap"
+  },
+  {
+   "name": "wadler-lindg",
+   "ecosystem": "pypi",
+   "of": "wadler-lindig",
+   "edit": "drop"
+  },
+  {
+   "name": "alltair",
+   "ecosystem": "pypi",
+   "of": "altair",
+   "edit": "double"
+  },
+  {
+   "name": "mc",
+   "ecosystem": "pypi",
+   "of": "mcp",
+   "edit": "drop"
+  },
+  {
+   "name": "google-api-pythno-client",
+   "ecosystem": "pypi",
+   "of": "google-api-python-client",
+   "edit": "swap"
+  },
+  {
+   "name": "adl",
+   "ecosystem": "pypi",
+   "of": "adal",
+   "edit": "drop"
+  },
+  {
+   "name": "torfhao",
+   "ecosystem": "pypi",
+   "of": "torchao",
+   "edit": "sub"
+  },
+  {
+   "name": "laether",
+   "ecosystem": "pypi",
+   "of": "leather",
+   "edit": "swap"
+  },
+  {
+   "name": "python-quickbookks",
+   "ecosystem": "pypi",
+   "of": "python-quickbooks",
+   "edit": "double"
+  },
+  {
+   "name": "phnenumbers",
+   "ecosystem": "pypi",
+   "of": "phonenumbers",
+   "edit": "drop"
+  },
+  {
+   "name": "ag-ui-prtoocol",
+   "ecosystem": "pypi",
+   "of": "ag-ui-protocol",
+   "edit": "swap"
+  },
+  {
+   "name": "databricks-skd",
+   "ecosystem": "pypi",
+   "of": "databricks-sdk",
+   "edit": "swap"
+  },
+  {
+   "name": "loosveersion",
+   "ecosystem": "pypi",
+   "of": "looseversion",
+   "edit": "swap"
+  },
+  {
+   "name": "opentelemetry-exporter-otlp-proto-commox",
+   "ecosystem": "pypi",
+   "of": "opentelemetry-exporter-otlp-proto-common",
+   "edit": "swap"
+  },
+  {
+   "name": "gensoon",
+   "ecosystem": "pypi",
+   "of": "genson",
+   "edit": "double"
+  },
+  {
+   "name": "tblibb",
+   "ecosystem": "pypi",
+   "of": "tblib",
+   "edit": "double"
+  },
+  {
+   "name": "alpaoa-py",
+   "ecosystem": "pypi",
+   "of": "alpaca-py",
+   "edit": "sub"
+  },
+  {
+   "name": "types-defuseddxml",
+   "ecosystem": "pypi",
+   "of": "types-defusedxml",
+   "edit": "double"
+  },
+  {
+   "name": "pytemt-messenger",
+   "ecosystem": "pypi",
+   "of": "pytest-messenger",
+   "edit": "sub"
+  }
+ ]
+}

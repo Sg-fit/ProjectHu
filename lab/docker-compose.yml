@@ -1,0 +1,35 @@
+# Contained attack demo. Isolated bridge network; the target has NO route to the
+# public internet - its pip can only reach the local `registry` service.
+#
+# Hard rules enforced here:
+#   - `internal: true` on the network => no egress from any container to the host
+#     or the internet. The target cannot reach public PyPI even if it tried.
+#   - The registry serves only files placed by hand in registry/packages/.
+#   - Nothing in this stack can publish to a public registry.
+#
+# Usage: see ../README.md and demo/README.md. Never run a payload outside this net.
+
+name: agentloop-sec-lab
+
+networks:
+  labnet:
+    driver: bridge
+    internal: true          # <- no egress to host or internet
+
+services:
+  registry:
+    build: ./registry
+    volumes:
+      - ./registry/packages:/packages:ro
+    networks: [labnet]
+    # No ports published to the host: reachable only from inside labnet.
+
+  target:
+    build:
+      context: .
+      dockerfile: agent/Dockerfile
+    depends_on: [registry]
+    networks: [labnet]
+    working_dir: /work
+    # The target executes whatever install command the agent emits. In the demo
+    # we drive it by hand (docker compose exec) to keep each step visible.

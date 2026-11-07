@@ -1,0 +1,32 @@
+# Shim policy. Bump `version` on EVERY threshold change; each verdict row
+# records the policy_version it was produced under, so tuned results stay attributable.
+version: "2026-11-06.1"
+
+# Existence check: a name not in the registry is blocked outright.
+nonexistent: block
+
+# Age: a package whose first release is younger than this is flagged for human approval.
+# 180 days is long enough that an attacker squatting a freshly observed hallucination
+# must wait half a year before the name passes silently.
+min_age_days: 180
+
+# Popularity: below this many downloads in the last 30 days -> flag.
+# Set to null to disable. Unknown download counts (stats API unavailable) are
+# handled by `unknown_downloads`.
+min_downloads: 1000
+unknown_downloads: allow   # allow | flag
+
+# Typosquat heuristic: within this edit distance of a top-N package, but not that package -> flag.
+typosquat:
+  enabled: true
+  max_distance: 1
+  top_n: 1000
+  reference:
+    pypi: corpus/top_pypi.json
+    npm: corpus/top_npm.json
+
+# If the registry lookup itself fails (timeout, 5xx), fail closed to a flag rather than allow.
+on_lookup_error: flag
+
+# Packages always allowed (e.g. internal names that live on a private index). Normalized names.
+allowlist: []

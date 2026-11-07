@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentloop-sec"
+version = "0.1.0"
+description = "Measuring and mitigating the hallucination-to-action gap in agent loops (package hallucination / slopsquatting)."
+readme = "README.md"
+requires-python = ">=3.11"
+# Runtime dependencies are deliberately minimal: a tool that defends the install path
+# should not itself pull a deep dependency tree. Exact pins + hashes live in
+# requirements.lock (runtime) and requirements-dev.lock (tests) - install with
+#   pip install --require-hashes -r requirements-dev.lock
+dependencies = [
+    "PyYAML==6.0.3",
+]
+
+[project.optional-dependencies]
+api = ["anthropic>=1.0,<2"]
+figures = ["matplotlib>=3.9"]
+dev = ["pytest==9.2.0"]
+
+[project.scripts]
+als = "als.cli:main"
+als-shim = "als.shim.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["network: hits the live PyPI/npm registries (run with ALS_NETWORK_TESTS=1)"]
