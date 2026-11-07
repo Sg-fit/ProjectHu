@@ -48,17 +48,19 @@ models:
     budget_usd: 0
     enabled: true
 
-  - key: nvidia-llama70b
+  # NVIDIA ids below are from the account's actual /models catalog (2026-11-07).
+  # Confirm each is callable with `python scripts/test_providers.py nvidia` before a full run.
+  - key: nvidia-nemotron70b
     provider: nvidia
-    model_id: meta/llama-3.3-70b-instruct
+    model_id: nvidia/llama-3.1-nemotron-70b-instruct
     temperature: 0.7
     seed_base: 1000
     budget_usd: 0
     enabled: true
 
-  - key: nvidia-qwen-coder
+  - key: nvidia-granite8b
     provider: nvidia
-    model_id: qwen/qwen2.5-coder-32b-instruct
+    model_id: ibm/granite-3.0-8b-instruct
     temperature: 0.7
     seed_base: 1000
     budget_usd: 0

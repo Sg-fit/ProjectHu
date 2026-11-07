@@ -32,6 +32,10 @@ PRESETS = {
     "openai": {"base_url": "https://api.openai.com/v1", "api_key_env": "OPENAI_API_KEY"},
 }
 
+# Groq sits behind Cloudflare, which 1010-blocks the default `Python-urllib/x.y`
+# user-agent. A normal UA avoids it; harmless on the other providers.
+USER_AGENT = "agentloop-sec/0.1 (+https://github.com/Sg-fit/ProjectHu)"
+
 
 class MissingKey(RuntimeError):
     pass
@@ -64,7 +68,7 @@ class OpenAICompatRunner:
         req = urllib.request.Request(
             f"{self.base_url}/chat/completions", data=data,
             headers={"Authorization": f"Bearer {self._auth()}", "Content-Type": "application/json",
-                     "Accept": "application/json"},
+                     "Accept": "application/json", "User-Agent": USER_AGENT},
         )
         delay = 2.0
         for attempt in range(self.max_retries + 1):

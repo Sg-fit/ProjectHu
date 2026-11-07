@@ -27,21 +27,51 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from als.runners.openai_compat import PRESETS, MissingKey, OpenAICompatRunner  # noqa: E402
+from als.runners.openai_compat import PRESETS, USER_AGENT, MissingKey, OpenAICompatRunner  # noqa: E402
 
-# A default model to ping per provider (overridable with --model provider=id).
-DEFAULT_MODELS = {
-    "groq": "llama-3.1-8b-instant",
-    "nvidia": "meta/llama-3.1-8b-instruct",
-    "openai": "gpt-4o-mini",
+# Preferred ping models per provider (first one present in the catalog wins).
+# Overridable with --model provider=id.
+PREFERRED = {
+    "groq": ["llama-3.1-8b-instant", "llama-3.3-70b-versatile", "openai/gpt-oss-20b"],
+    "nvidia": ["meta/llama-3.1-8b-instruct", "ibm/granite-3.0-8b-instruct",
+               "mistralai/mistral-7b-instruct-v0.3", "openai/gpt-oss-20b",
+               "nvidia/llama-3.1-nemotron-70b-instruct", "mistralai/mistral-large-2-instruct"],
+    "openai": ["gpt-4o-mini"],
 }
+# Non-chat model families to skip when auto-picking (embeddings, vision-only,
+# safety/guard, reward, rerankers, parsers, translators, detectors, etc.).
+_NOT_CHAT = ("embed", "embedqa", "rerank", "reward", "guard", "safety", "nemoguard",
+             "nemoretriever", "parse", "translate", "detector", "calibration", "diffusion",
+             "nvclip", "deplot", "kosmos", "neva", "vila", "fuyu", "cosmos", "riva", "omni",
+             "-vl-", "chatqa")
+_CHAT_HINT = ("instruct", "chat", "-it", "gpt-oss", "versatile", "instant", "nemotron")
 PING = "Reply with exactly the word: pong"
+MAX_PING_ATTEMPTS = 5
+
+
+def chat_candidates(provider: str, available: list[str], override: str | None) -> list[str]:
+    avail = set(available)
+    ranked: list[str] = []
+    if override:
+        ranked.append(override)
+    for m in PREFERRED.get(provider, []):
+        if m in avail and m not in ranked:
+            ranked.append(m)
+    # then any catalog model that looks like a chat/instruct text model
+    for m in available:
+        low = m.lower()
+        if m in ranked or any(b in low for b in _NOT_CHAT):
+            continue
+        if any(h in low for h in _CHAT_HINT):
+            ranked.append(m)
+    return ranked
 
 
 def list_models(preset: dict) -> tuple[int, list[str], str | None]:
     key = os.environ.get(preset["api_key_env"])
     req = urllib.request.Request(preset["base_url"].rstrip("/") + "/models",
-                                 headers={"Authorization": f"Bearer {key}", "Accept": "application/json"})
+                                 headers={"Authorization": f"Bearer {key}", "Accept": "application/json",
+                                          "User-Agent": USER_AGENT})
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
             data = json.load(r)
@@ -74,24 +104,31 @@ def test_provider(provider: str, model_override: str | None, show_list: bool) ->
     elif ids:
         print(f"      e.g. {', '.join(ids[:6])}{' ...' if n > 6 else ''}")
 
-    model = model_override or DEFAULT_MODELS.get(provider)
-    if model not in ids and ids:
-        alt = next((m for m in ids if "8b" in m.lower() or "mini" in m.lower() or "instant" in m.lower()), ids[0])
-        print(f"  note: '{model}' not in list; pinging '{alt}' instead")
-        model = alt
-    runner = OpenAICompatRunner({"key": f"{provider}-test", "provider": provider, "preset": provider,
-                                 "model_id": model, "temperature": 0.0, "max_tokens": 16})
-    try:
-        t0 = time.perf_counter()
-        out = runner.complete(PING, {"system": "You are a terse assistant.", "run_idx": 0, "max_tokens": 16})
-    except (MissingKey, RuntimeError) as e:
-        print(f"  completion FAILED: {e}")
+    candidates = chat_candidates(provider, ids, model_override)
+    if not candidates:
+        print("  no chat-capable model found in the catalog to ping")
         return False
-    wall = (time.perf_counter() - t0) * 1000
-    print(f"  completion OK - model='{out.served_model}' finish='{out.stop_reason}' "
-          f"tokens in/out={out.input_tokens}/{out.output_tokens} latency={out.latency_ms:.0f}ms (wall {wall:.0f}ms)")
-    print(f"      reply: {out.text.strip()[:80]!r}")
-    return True
+    last_err = None
+    for model in candidates[:MAX_PING_ATTEMPTS]:
+        runner = OpenAICompatRunner({"key": f"{provider}-test", "provider": provider, "preset": provider,
+                                     "model_id": model, "temperature": 0.0, "max_tokens": 16})
+        try:
+            out = runner.complete(PING, {"system": "You are a terse assistant.", "run_idx": 0, "max_tokens": 16})
+        except (MissingKey, RuntimeError) as e:
+            last_err = e
+            msg = str(e)
+            if "404" in msg or "not found" in msg.lower():
+                print(f"  '{model}' not callable (404); trying next...")
+                continue
+            print(f"  completion FAILED on '{model}': {e}")
+            return False
+        print(f"  completion OK - model='{out.served_model}' finish='{out.stop_reason}' "
+              f"tokens in/out={out.input_tokens}/{out.output_tokens} latency={out.latency_ms:.0f}ms")
+        print(f"      reply: {out.text.strip()[:80]!r}")
+        print(f"      -> use this id in config/models.yaml: {model}")
+        return True
+    print(f"  completion FAILED: no candidate was callable (last error: {last_err})")
+    return False
 
 
 def main() -> int:
