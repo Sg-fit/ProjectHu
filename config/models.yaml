@@ -28,23 +28,51 @@ models:
     fallbacks: false
     enabled: true
 
-  - key: qwen-small
-    provider: ollama
-    model_id: qwen2.5-coder:7b
+  # --- Open models via OpenAI-compatible hosted endpoints. Keys read from env at
+  # call time (NVIDIA_API_KEY / GROQ_API_KEY); never stored in results. Model ids
+  # below are reasonable current choices - run `python scripts/test_providers.py`
+  # first to confirm each key sees them, and swap in whatever `/models` lists.
+  - key: groq-llama70b
+    provider: groq
+    model_id: llama-3.3-70b-versatile
     temperature: 0.7
     seed_base: 1000          # run_idx is added, so each repeat is independent but reproducible
-    endpoint: http://localhost:11434
+    budget_usd: 0            # priced separately; set a cap if you want one
+    enabled: true
+
+  - key: groq-gptoss20b
+    provider: groq
+    model_id: openai/gpt-oss-20b
+    temperature: 0.7
+    seed_base: 1000
     budget_usd: 0
     enabled: true
 
-  - key: llama-large
+  - key: nvidia-llama70b
+    provider: nvidia
+    model_id: meta/llama-3.3-70b-instruct
+    temperature: 0.7
+    seed_base: 1000
+    budget_usd: 0
+    enabled: true
+
+  - key: nvidia-qwen-coder
+    provider: nvidia
+    model_id: qwen/qwen2.5-coder-32b-instruct
+    temperature: 0.7
+    seed_base: 1000
+    budget_usd: 0
+    enabled: true
+
+  # Optional local models (Ollama) - disabled until a server is running.
+  - key: ollama-qwen
     provider: ollama
-    model_id: llama3.1:70b
+    model_id: qwen2.5-coder:7b
     temperature: 0.7
     seed_base: 1000
     endpoint: http://localhost:11434
     budget_usd: 0
-    enabled: true
+    enabled: false
 
   # Deterministic canned-output runner used by tests and dry runs. Never part of results.
   - key: stub

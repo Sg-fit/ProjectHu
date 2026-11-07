@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-11-07T02:49:07+00:00",
+  "db": "C:\\Users\\charl\\OneDrive\\Documents\\Official Project\\Hallucination\\agentloop-sec\\results\\als.sqlite",
+  "overall": {
+    "runs": 0,
+    "runs_with_packages": 0,
+    "packages": 0,
+    "hallucinated": 0,
+    "squattable": 0,
+    "unresolved": 0,
+    "unscored": 0,
+    "prompt_level_rate": null,
+    "package_level_rate": null,
+    "squattable_rate": null,
+    "refusals": 0
+  },
+  "recurrence": {
+    "distinct_fake_names": 0,
+    "R@2": null,
+    "R@3": null,
+    "R@5": null,
+    "cross_model_names": 0,
+    "cross_prompt_names": 0,
+    "top20": []
+  },
+  "by_model": {},
+  "by_framing": {},
+  "by_obscurity": {},
+  "by_ecosystem": {},
+  "by_domain": {},
+  "shim": {
+    "policy_versions": [
+      "2026-11-06.1"
+    ],
+    "n": {
+      "hallucinated": 0,
+      "real": 115,
+      "typo": 50,
+      "squattable": 0
+    },
+    "catch_rate": null,
+    "false_positive_rate": 0.008695652173913044,
+    "false_positive_block_rate": 0.0,
+    "typo_intercept_rate": 1.0,
+    "squattable_flag_rate": null,
+    "false_positives": [
+      [
+        "pyside6-webengine",
+        "flag",
+        "first release 31d before check (< 180d); 0 downloads/30d (< 1000)"
+      ]
+    ],
+    "latency_ms": {
+      "cold": {
+        "n": 165,
+        "p50": 357.8949000002467,
+        "p95": 513.8128000020515,
+        "mean": 373.40908060586753
+      },
+      "warm": {
+        "n": 165,
+        "p50": 0.024599998141638935,
+        "p95": 0.4784000018844378,
+        "mean": 0.13641878789657672
+      }
+    }
+  },
+  "oracle_checked_range": [
+    null,
+    null
+  ],
+  "spend_usd": 0.0
+}

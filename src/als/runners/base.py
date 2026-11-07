@@ -37,4 +37,9 @@ def make_runner(cfg: dict) -> Runner:
     if provider == "stub":
         from .stub import StubRunner
         return StubRunner(cfg)
+    if provider in ("openai_compat", "nvidia", "groq", "openai"):
+        from .openai_compat import OpenAICompatRunner
+        if provider != "openai_compat":
+            cfg = {**cfg, "preset": cfg.get("preset", provider)}
+        return OpenAICompatRunner(cfg)
     raise ValueError(f"unknown provider {provider!r}")
