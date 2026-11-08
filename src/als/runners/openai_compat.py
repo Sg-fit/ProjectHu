@@ -90,6 +90,14 @@ class OpenAICompatRunner:
                     delay *= 2
                     continue
                 raise RuntimeError(f"connection error to {self.key}: {e.reason}") from None
+            except (TimeoutError, OSError) as e:
+                # A read timeout mid-response raises a bare TimeoutError (socket),
+                # not URLError. Treat it like any transient connection failure.
+                if attempt < self.max_retries:
+                    time.sleep(delay)
+                    delay *= 2
+                    continue
+                raise RuntimeError(f"timed out after {self.timeout:.0f}s contacting {self.key}: {e}") from None
         raise RuntimeError(f"{self.key}: exhausted retries")
 
     def complete(self, prompt: str, params: dict) -> RawOutput:

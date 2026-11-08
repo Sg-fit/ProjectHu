@@ -33,9 +33,10 @@ from als.runners.openai_compat import PRESETS, USER_AGENT, MissingKey, OpenAICom
 # Overridable with --model provider=id.
 PREFERRED = {
     "groq": ["llama-3.1-8b-instant", "llama-3.3-70b-versatile", "openai/gpt-oss-20b"],
-    "nvidia": ["meta/llama-3.1-8b-instruct", "ibm/granite-3.0-8b-instruct",
-               "mistralai/mistral-7b-instruct-v0.3", "openai/gpt-oss-20b",
-               "nvidia/llama-3.1-nemotron-70b-instruct", "mistralai/mistral-large-2-instruct"],
+    "nvidia": ["nvidia/llama-3.1-nemotron-70b-instruct", "mistralai/mistral-large-2-instruct",
+               "mistralai/mistral-large", "meta/llama2-70b", "databricks/dbrx-instruct",
+               "ai21labs/jamba-1.5-large-instruct", "01-ai/yi-large",
+               "ibm/granite-3.0-8b-instruct", "mistralai/mistral-7b-instruct-v0.3"],
     "openai": ["gpt-4o-mini"],
 }
 # Non-chat model families to skip when auto-picking (embeddings, vision-only,
@@ -46,7 +47,8 @@ _NOT_CHAT = ("embed", "embedqa", "rerank", "reward", "guard", "safety", "nemogua
              "-vl-", "chatqa")
 _CHAT_HINT = ("instruct", "chat", "-it", "gpt-oss", "versatile", "instant", "nemotron")
 PING = "Reply with exactly the word: pong"
-MAX_PING_ATTEMPTS = 5
+MAX_PING_ATTEMPTS = 8
+PING_TIMEOUT_S = 25        # short, so a hung model fails fast and the sweep moves on
 
 
 def chat_candidates(provider: str, available: list[str], override: str | None) -> list[str]:
@@ -109,25 +111,28 @@ def test_provider(provider: str, model_override: str | None, show_list: bool) ->
         print("  no chat-capable model found in the catalog to ping")
         return False
     last_err = None
-    for model in candidates[:MAX_PING_ATTEMPTS]:
+    tried = candidates[:MAX_PING_ATTEMPTS]
+    for model in tried:
         runner = OpenAICompatRunner({"key": f"{provider}-test", "provider": provider, "preset": provider,
-                                     "model_id": model, "temperature": 0.0, "max_tokens": 16})
+                                     "model_id": model, "temperature": 0.0, "max_tokens": 16,
+                                     "timeout_s": PING_TIMEOUT_S, "max_retries": 1})
         try:
             out = runner.complete(PING, {"system": "You are a terse assistant.", "run_idx": 0, "max_tokens": 16})
-        except (MissingKey, RuntimeError) as e:
-            last_err = e
-            msg = str(e)
-            if "404" in msg or "not found" in msg.lower():
-                print(f"  '{model}' not callable (404); trying next...")
-                continue
-            print(f"  completion FAILED on '{model}': {e}")
+        except MissingKey as e:
+            print(f"  completion FAILED: {e}")
             return False
+        except RuntimeError as e:
+            last_err = e
+            reason = "timeout" if "timed out" in str(e).lower() else ("404" if "404" in str(e) or "not found" in str(e).lower() else "error")
+            print(f"  '{model}' not usable ({reason}); trying next...")
+            continue
         print(f"  completion OK - model='{out.served_model}' finish='{out.stop_reason}' "
               f"tokens in/out={out.input_tokens}/{out.output_tokens} latency={out.latency_ms:.0f}ms")
         print(f"      reply: {out.text.strip()[:80]!r}")
         print(f"      -> use this id in config/models.yaml: {model}")
         return True
-    print(f"  completion FAILED: no candidate was callable (last error: {last_err})")
+    print(f"  completion FAILED: none of {len(tried)} candidates were callable (last error: {last_err})")
+    print(f"      tried: {', '.join(tried)}")
     return False
 
 

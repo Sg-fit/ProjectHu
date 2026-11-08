@@ -63,6 +63,19 @@ def test_complete_parses_and_sends(monkeypatch):
     assert out.params["endpoint"] == "https://api.groq.com/openai/v1"
 
 
+def test_read_timeout_becomes_runtimeerror(monkeypatch):
+    monkeypatch.setenv("NVIDIA_API_KEY", "nvapi-secret")
+    monkeypatch.setattr("als.runners.openai_compat.time.sleep", lambda s: None)
+
+    def hang(req, timeout=None):
+        raise TimeoutError("The read operation timed out")
+    monkeypatch.setattr("als.runners.openai_compat.urllib.request.urlopen", hang)
+    r = make_runner({"key": "n", "provider": "nvidia", "model_id": "m", "max_retries": 1, "timeout_s": 5})
+    with pytest.raises(RuntimeError) as ei:
+        r.complete("hi", {"system": "s", "run_idx": 0})
+    assert "timed out" in str(ei.value).lower() and "nvapi-secret" not in str(ei.value)
+
+
 def test_http_error_message_has_no_key(monkeypatch):
     import urllib.error
 
