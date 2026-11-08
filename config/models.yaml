@@ -51,23 +51,19 @@ models:
     budget_usd: 0
     enabled: true
 
-  # NVIDIA ids below are from the account's actual /models catalog (2026-11-07).
-  # Confirm each is callable with `python scripts/test_providers.py nvidia` before a full run.
+  # NVIDIA: DISABLED 2026-11-07. The key lists all 84 catalog models (/models works)
+  # but every /chat/completions returns 404 "Function not found for account" across
+  # 8 model families - an account entitlement issue, not a model-id problem (the same
+  # code works against Groq). Re-enable once the key can invoke: regenerate an API
+  # catalog key from build.nvidia.com on a model page ("Get API Key"), then confirm
+  # with `python scripts/test_providers.py nvidia` and set a callable id below.
   - key: nvidia-nemotron70b
     provider: nvidia
     model_id: nvidia/llama-3.1-nemotron-70b-instruct
     temperature: 0.7
     seed_base: 1000
     budget_usd: 0
-    enabled: true
-
-  - key: nvidia-granite8b
-    provider: nvidia
-    model_id: ibm/granite-3.0-8b-instruct
-    temperature: 0.7
-    seed_base: 1000
-    budget_usd: 0
-    enabled: true
+    enabled: false
 
   # Optional local models (Ollama) - disabled until a server is running.
   - key: ollama-qwen
